@@ -30,5 +30,6 @@ class MovieSpider(CrawlSpider):
             item['score'] = node.xpath('./div[2]/div/span[2]/text()').extract_first()
             item['info'] = ''.join([i.strip() for i in node.xpath('./div[2]/p[1]/text()').extract()]).replace('\xa0','')
             item['desc'] = node.xpath('./div[2]/p[2]/span/text()').extract_first()
+
             # 返回数据给引擎
             yield item
