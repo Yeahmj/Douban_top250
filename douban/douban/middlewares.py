@@ -7,6 +7,8 @@
 import random
 from scrapy import signals
 from douban.settings import PY4_USER_AGENT
+from douban.settings import PY_PROXY_LIST
+import base64
 
 
 class DoubanSpiderMiddleware(object):
@@ -105,14 +107,29 @@ class DoubanSpiderMiddleware(object):
 
 
 class RandomUserAgent(object):
-
+    """随机用户头"""
     def process_request(self,request,spider):
         ua = random.choice(PY4_USER_AGENT)
         # print(ua)
         request.headers['User-Agent'] = ua
 
 
+class RandomProxy(object):
+    """代理IP"""
+    def process_request(self,request,spider):
+        proxy = random.choice(PY_PROXY_LIST)
+        # print(proxy)
 
+        if 'user_passwd' in proxy:
+            # 对账号密码进行编码
+            b64_user_pwd = base64.b64encode(proxy['user_passwd'].encode())
+            # 设置账号密码  Proxy-Authorization代理认证  认证方式+空格'Basic '
+            request.headers['Proxy-Authorization'] = 'Basic ' + b64_user_pwd.decode()
+            # 设置代理
+            request.meta['proxy'] = proxy['ip_port']
+        else:
+            # 设置代理
+            request.meta['proxy'] = proxy['ip_port']
 
 
 

@@ -33,6 +33,13 @@ PY4_USER_AGENT = [
 "Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US) AppleWebKit/525.13 (KHTML, like Gecko) Chrome/0.2.149.27 Safari/525.13",
 ]
 
+PY_PROXY_LIST = [
+    {"ip_port":"117.48.201.187:16816", "user_passwd":"morganna_mode_g:ggc22qxp"},
+    # {"ip_port":"117.90.0.59:9000"},
+
+]
+
+
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 # USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36'
 
@@ -73,6 +80,7 @@ PY4_USER_AGENT = [
 DOWNLOADER_MIDDLEWARES = {
    # 'douban.middlewares.DoubanDownloaderMiddleware': 543,
    'douban.middlewares.RandomUserAgent': 543,
+   'douban.middlewares.RandomProxy': 544,
 }
 
 # Enable or disable extensions
